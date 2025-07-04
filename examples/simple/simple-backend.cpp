@@ -11,6 +11,10 @@
 #include "ggml-metal.h"
 #endif
 
+#ifdef GGML_USE_ZDNN
+#include "ggml-zdnn.h"
+#endif
+
 #include <cassert>
 #include <cmath>
 #include <cstdio>
@@ -60,6 +64,14 @@ void load_model(simple_model & model, float * a, float * b, int rows_A, int cols
     model.backend = ggml_backend_metal_init();
     if (!model.backend) {
         fprintf(stderr, "%s: ggml_backend_metal_init() failed\n", __func__);
+    }
+#endif
+
+#ifdef GGML_USE_ZDNN
+    fprintf(stderr, "%s: using ZDNN backend\n", __func__);
+    model.backend = ggml_backend_zdnn_init();
+    if (!model.backend) {
+        fprintf(stderr, "%s: ggml_backend_zdnn_init() failed\n", __func__);
     }
 #endif
 
