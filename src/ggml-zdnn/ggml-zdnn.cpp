@@ -194,11 +194,11 @@ static void * ggml_backend_zdnn_buffer_get_base(ggml_backend_buffer_t buffer) {
     return (void *)data;
 }
 
-static void ggml_backend_zdnn_buffer_init_tensor(ggml_backend_buffer_t   buffer,
+static ggml_status ggml_backend_zdnn_buffer_init_tensor(ggml_backend_buffer_t   buffer,
                                                            ggml_tensor * tensor) {
     if (tensor->view_src != NULL) {
         assert(tensor->view_src->buffer->buft == buffer->buft);
-        return;
+        return GGML_STATUS_SUCCESS;
     }
 
     zdnn_extra * extra = new zdnn_extra;
@@ -233,6 +233,8 @@ static void ggml_backend_zdnn_buffer_init_tensor(ggml_backend_buffer_t   buffer,
     }
 
     tensor->extra = extra;
+
+    return GGML_STATUS_SUCCESS;
 }
 
 static void ggml_backend_zdnn_buffer_memset_tensor(ggml_backend_buffer_t   buffer,
