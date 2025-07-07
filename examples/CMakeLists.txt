@@ -32,3 +32,7 @@ endif()
 if (GGML_METAL)
     add_subdirectory(perf-metal)
 endif()
+
+if (GGML_ZDNN)
+    add_subdirectory(perf-zdnn)
+endif()
