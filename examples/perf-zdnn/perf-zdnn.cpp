@@ -6,6 +6,7 @@
 #include "ggml-zdnn.h"
 
 #include <cstdio>
+#include <cstdlib>
 #include <vector>
 #include <thread>
 
